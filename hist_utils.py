@@ -45,7 +45,7 @@ def apply_hist_modification_transform(img_array: np.ndarray, modification_transf
 # Δημιουργία παραδείγματος εικόνας
 img_array = np.array([[0.1, 0.2, 0.1], [0.3, 0.1, 0.3], [0.2, 0.3, 0.3]], dtype=float)
 
-filename = "input_img.jpg"
+filename = "images/input_img.jpg"
 img = Image.open(fp=filename)
 bw_img = img.convert("L")
 #img_array = np.array(bw_img).astype(float) / 255.0
