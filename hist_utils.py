@@ -9,11 +9,9 @@ def calculate_hist_of_img(img_array: np.ndarray, return_normalized: bool) -> Dic
 
     # Εύρεση μοναδικών τιμών
     unique_values = np.unique(img_array)
-    print(unique_values)
 
     # Υπολογισμός του συνολικού αριθμού στοιχείων
     total_samples = img_array.size
-    print(total_samples)
 
     for value in unique_values:
         # Υπολογισμός της συχνότητας εμφάνισης για την τρέχουσα τιμή
