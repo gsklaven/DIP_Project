@@ -38,18 +38,3 @@ def apply_hist_modification_transform(img_array: np.ndarray, modification_transf
         # Use a mask to replace input values with output values
         modified_array[img_array == input_value] = output_value
     return modified_array
-
-
-# Δημιουργία παραδείγματος εικόνας
-img_array = np.array([[0.1, 0.2, 0.1], [0.3, 0.1, 0.3], [0.2, 0.3, 0.3]], dtype=float)
-
-filename = "images/input_img.jpg"
-img = Image.open(fp=filename)
-bw_img = img.convert("L")
-#img_array = np.array(bw_img).astype(float) / 255.0
-
-hist = calculate_hist_of_img(img_array, return_normalized=True)
-print(hist)
-
-modified_image = apply_hist_modification_transform(img_array, hist)
-print(modified_image)
