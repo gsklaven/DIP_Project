@@ -93,3 +93,19 @@ def nongreedy(img_array: np.ndarray, lg: int) -> np.ndarray:
             pixel_counter = 0
 
     return g_image
+
+
+def post_disturbance(img_array: np.ndarray, lg: int) -> np.ndarray:
+
+    unique_values = np.unique_values(img_array)
+    d = unique_values[1] - unique_values[0]
+    noise = np.random.uniform(low=-d/2, high=d/2, size=img_array.shape)
+    disturbed_image = img_array + noise
+
+    min_val = unique_values[0] - d / 2
+    max_val = unique_values[-1] + d / 2
+    disturbed_image = np.clip(disturbed_image, min_val, max_val)
+
+    g_image = greedy(disturbed_image, lg)
+
+    return g_image
