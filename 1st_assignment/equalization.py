@@ -96,8 +96,7 @@ def nongreedy(img_array: np.ndarray, lg: int) -> np.ndarray:
 
 
 def post_disturbance(img_array: np.ndarray, lg: int) -> np.ndarray:
-
-    unique_values = np.unique_values(img_array)
+    unique_values = np.unique(img_array)
     d = unique_values[1] - unique_values[0]
     noise = np.random.uniform(low=-d/2, high=d/2, size=img_array.shape)
     disturbed_image = img_array + noise
@@ -105,6 +104,8 @@ def post_disturbance(img_array: np.ndarray, lg: int) -> np.ndarray:
     min_val = unique_values[0] - d / 2
     max_val = unique_values[-1] + d / 2
     disturbed_image = np.clip(disturbed_image, min_val, max_val)
+
+    disturbed_image = np.round(disturbed_image, 3)
 
     g_image = greedy(disturbed_image, lg)
 
