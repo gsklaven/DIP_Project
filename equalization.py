@@ -2,6 +2,7 @@ import numpy as np
 import math
 from hist_utils import calculate_hist_of_img
 
+
 def greedy(img_array: np.ndarray, lg: int) -> np.ndarray:
     n = img_array.size
 
