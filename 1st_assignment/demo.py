@@ -6,7 +6,7 @@ from equalization import greedy
 from equalization import nongreedy
 
 
-filename = "images/input_img.jpg"
+filename = "../images/input_img.jpg"
 img = Image.open(fp=filename)
 bw_img = img.convert("L")
 # img_array = np.array(bw_img).astype(float) / 255.0
