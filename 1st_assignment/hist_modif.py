@@ -39,7 +39,7 @@ def perform_hist_eq(img_array: np.ndarray, mode: str) -> np.ndarray:
 
 
 def perform_hist_matching(img_array: np.ndarray, img_array_ref: np.ndarray, mode: str) -> np.ndarray:
-    hist_ref = calculate_hist_of_img(img_array_ref, return_normalized=False)
+    hist_ref = calculate_hist_of_img(img_array_ref, return_normalized=True)
     print(f"Ιστόγραμμα αναφοράς: {hist_ref}")
 
     processed_img = perform_hist_modification(img_array, hist_ref, mode)
