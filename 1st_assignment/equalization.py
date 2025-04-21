@@ -15,7 +15,7 @@ def greedy(img_array: np.ndarray, lg: int) -> np.ndarray:
     hist = calculate_hist_of_img(img_array, return_normalized=False)
     print(f"Το ιστογράφημα είναι: {hist}")
 
-    pixels_for_g = math.ceil(n / lg)
+    pixels_for_g = getattr(greedy, 'pixels_for_g', math.ceil(n / lg))
     print(f"Ο αριθμός των pixels που πρέπει να ανατεθούν σε κάθε στάθμη g είναι: {pixels_for_g}")
 
     g_image = img_array.copy()
@@ -55,7 +55,7 @@ def nongreedy(img_array: np.ndarray, lg: int) -> np.ndarray:
     hist = calculate_hist_of_img(img_array, return_normalized=False)
     print(f"Το ιστογράφημα είναι: {hist}")
 
-    pixels_for_g = math.ceil(n / lg)
+    pixels_for_g = getattr(nongreedy, 'pixels_for_g', math.ceil(n / lg))
     print(f"Ο αριθμός των pixels που πρέπει να ανατεθούν σε κάθε στάθμη g είναι: {pixels_for_g}")
 
     g_image = img_array.copy()
