@@ -25,7 +25,7 @@ def calculate_hist_of_img(img_array: np.ndarray, return_normalized: bool) -> Dic
 
 
 def apply_hist_modification_transform(img_array: np.ndarray, modification_transform: Dict) -> np.ndarray:
-    modified_array = img_array.copy()
+    modified_img = img_array.copy()
     for input_value, output_value in modification_transform.items():
-        modified_array[img_array == input_value] = output_value
-    return modified_array
+        modified_img[img_array == input_value] = output_value
+    return modified_img
