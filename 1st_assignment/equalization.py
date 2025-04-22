@@ -4,7 +4,7 @@ from typing import Dict
 from hist_utils import calculate_hist_of_img, apply_hist_modification_transform
 
 
-def greedy(img_array: np.ndarray, hist_ref: Dict) -> Dict:
+def greedy(img_array: np.ndarray, hist: Dict,  hist_ref: Dict) -> Dict:
     n = img_array.size
     lg = np.unique(img_array).size
 
@@ -13,9 +13,6 @@ def greedy(img_array: np.ndarray, hist_ref: Dict) -> Dict:
     g_levels = np.linspace(gmin, gmax, lg)
     print(f"Lf: {len(np.unique(img_array))}")
     print(f"Οι στάθμες εξόδου g είναι: {g_levels}")
-
-    hist = calculate_hist_of_img(img_array, return_normalized=False)
-    print(f"Το ιστογράφημα είναι: {hist}")
 
     if hist_ref is None:
         pixels_for_g = {g: math.ceil(n / lg) for g in g_levels}
@@ -48,7 +45,7 @@ def greedy(img_array: np.ndarray, hist_ref: Dict) -> Dict:
     return modification_transform
 
 
-def nongreedy(img_array: np.ndarray, hist_ref: Dict) -> Dict:
+def nongreedy(img_array: np.ndarray, hist: Dict, hist_ref: Dict) -> Dict:
     import math
     n = img_array.size
     lg = np.unique(img_array).size
@@ -58,9 +55,6 @@ def nongreedy(img_array: np.ndarray, hist_ref: Dict) -> Dict:
     g_levels = np.linspace(gmin, gmax, lg)
     print(f"Lf: {len(np.unique(img_array))}")
     print(f"Οι στάθμες εξόδου g είναι: {g_levels}")
-
-    hist = calculate_hist_of_img(img_array, return_normalized=False)
-    print(f"Το ιστογράφημα είναι: {hist}")
 
     if hist_ref is None:
         pixels_for_g = {g: math.ceil(n / lg) for g in g_levels}
@@ -104,7 +98,7 @@ def nongreedy(img_array: np.ndarray, hist_ref: Dict) -> Dict:
     return modification_transform
 
 
-def post_disturbance(img_array: np.ndarray, hist_ref: Dict) -> np.ndarray:
+def post_disturbance(img_array: np.ndarray, hist: Dict, hist_ref: Dict) -> np.ndarray:
     unique_values = np.unique(img_array)
 
     d = unique_values[1] - unique_values[0]
@@ -116,7 +110,7 @@ def post_disturbance(img_array: np.ndarray, hist_ref: Dict) -> np.ndarray:
     disturbed_image = np.clip(disturbed_image, min_val, max_val)
 
     disturbed_image = np.round(disturbed_image, 3)
-    modification_transform = greedy(disturbed_image, hist_ref)
+    modification_transform = greedy(disturbed_image, hist, hist_ref)
     g_image = apply_hist_modification_transform(disturbed_image, modification_transform)
 
     return g_image

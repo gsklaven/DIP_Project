@@ -5,15 +5,17 @@ from equalization import greedy, nongreedy, post_disturbance
 
 
 def perform_hist_modification(img_array: np.ndarray, hist_ref: Dict, mode: str) -> np.ndarray:
+    hist = calculate_hist_of_img(img_array, return_normalized=False)
+    print(f"Το ιστογράφημα είναι: {hist}")
 
     if mode == "greedy":
-        modification_transform = greedy(img_array, hist_ref)
+        modification_transform = greedy(img_array, hist, hist_ref)
         modified_img = apply_hist_modification_transform(img_array, modification_transform)
     elif mode == "non-greedy":
-        modification_transform = nongreedy(img_array, hist_ref)
+        modification_transform = nongreedy(img_array, hist, hist_ref)
         modified_img = apply_hist_modification_transform(img_array, modification_transform)
     elif mode == "post-disturbance":
-        modified_img = post_disturbance(img_array, hist_ref)
+        modified_img = post_disturbance(img_array, hist, hist_ref)
     else:
         raise ValueError("Unknown mode")
 
