@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from hist_utils import calculate_hist_of_img, apply_hist_modification_transform
 from hist_modif import perform_hist_modification, perform_hist_eq, perform_hist_matching
+import os
+
+output_dir = "./output_plots"
+os.makedirs(output_dir, exist_ok=True)
 
 filename = "../images/input_img.jpg"
 img = Image.open(fp=filename)
@@ -40,6 +44,7 @@ plt.title("Αρχική Εικόνα")
 plt.colorbar()
 
 plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "1_original_image_and_histogram.png"))
 plt.show()
 
 # Check apply_hist_modification_transform
@@ -102,6 +107,7 @@ plt.xlabel("Στάθμη εισόδου")
 plt.ylabel("Συχνότητα")
 
 plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "2_histogram_modification_comparison.png"))
 plt.show()
 
 # Check perform_hist_eq
@@ -161,6 +167,7 @@ plt.xlabel("Στάθμη εισόδου")
 plt.ylabel("Συχνότητα")
 
 plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "3_histogram_equalization_comparison.png"))
 plt.show()
 
 # Check perform_hist_matching
@@ -242,4 +249,5 @@ plt.xlabel("Στάθμη εισόδου")
 plt.ylabel("Συχνότητα")
 
 plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "4_histogram_matching_comparison.png"))
 plt.show()

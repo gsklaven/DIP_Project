@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from typing import Dict
-from hist_utils import calculate_hist_of_img, apply_hist_modification_transform
+from hist_utils import apply_hist_modification_transform, calculate_hist_of_img
 
 
 def greedy(img_array: np.ndarray, hist: Dict,  hist_ref: Dict) -> Dict:
@@ -98,19 +98,27 @@ def nongreedy(img_array: np.ndarray, hist: Dict, hist_ref: Dict) -> Dict:
     return modification_transform
 
 
-def post_disturbance(img_array: np.ndarray, hist: Dict, hist_ref: Dict) -> np.ndarray:
-    unique_values = np.unique(img_array)
+def post_disturbance(img_array: np.ndarray, hist: dict, hist_ref: dict) -> np.ndarray:
+    orig_levels = np.unique(img_array)
+    d = orig_levels[1] - orig_levels[0]
 
-    d = unique_values[1] - unique_values[0]
-    noise = np.random.uniform(low=-d/2, high=d/2, size=img_array.shape)
+    noise = np.random.uniform(low=-d / 2, high=d / 2, size=img_array.shape)
     disturbed_image = img_array + noise
 
-    min_val = unique_values[0] - d / 2
-    max_val = unique_values[-1] + d / 2
+    min_val = orig_levels[0] - d / 2
+    max_val = orig_levels[-1] + d / 2
     disturbed_image = np.clip(disturbed_image, min_val, max_val)
 
     disturbed_image = np.round(disturbed_image, 3)
-    modification_transform = greedy(disturbed_image, hist, hist_ref)
-    g_image = apply_hist_modification_transform(disturbed_image, modification_transform)
 
-    return g_image
+    quantized_image = disturbed_image.copy()
+    for level in orig_levels:
+        mask = np.abs(disturbed_image - level) < d / 2
+        quantized_image[mask] = level
+
+    disturbed_hist = calculate_hist_of_img(quantized_image, return_normalized=False)
+
+    modification_transform = greedy(quantized_image, disturbed_hist, hist_ref)
+
+    matched_image = apply_hist_modification_transform(quantized_image, modification_transform)
+    return matched_image
