@@ -11,29 +11,25 @@ def calculate_hist_of_img(img_array: np.ndarray, return_normalized: bool) -> Dic
 
     Parameters:
         img_array (np.ndarray): The input image array.
-        return_normalized (bool): Flag to indicate if the histogram should be normalized.
+        return_normalized (bool): Whether to normalize the histogram.
 
     Returns:
-        Dict: A dictionary with intensity values as keys and counts or normalized frequencies as values.
+        Dict: A histogram dictionary with intensity values as keys.
     """
-    hist = {}  # Initialize the histogram dictionary
+    hist = {}
 
-    # Get all unique intensity values in the image
-    unique_values = np.unique(img_array)
+    # Flatten the image so we can work with 1D array
+    flat_img = img_array.flatten()
 
-    total_samples = img_array.size  # Total number of pixels
+    # Get unique values and their counts
+    unique_values = np.unique(flat_img)
 
-    # Iterate over each unique intensity value
+    total_samples = flat_img.size
+
     for value in unique_values:
-        count = 0  # Initialize counter for current intensity
-        # Loop through each row
-        for row in img_array:
-            # Loop through each element in the row
-            for element in row:
-                if element == value:
-                    count += 1  # Increase count if element equals the current value
+        # Count occurrences using boolean masking
+        count = np.sum(flat_img == value)
 
-        # Store count or normalized frequency in the histogram
         if return_normalized:
             hist[value] = count / total_samples
         else:

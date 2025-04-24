@@ -149,47 +149,42 @@ def nongreedy(img_array: np.ndarray, hist: Dict, hist_ref: Dict) -> Dict:
 
 def post_disturbance(img_array: np.ndarray, hist: dict, hist_ref: dict) -> np.ndarray:
     """
-        Applies a post-disturbance histogram modification approach using noise disturbance.
+    Applies histogram modification after introducing uniform random noise to disturb the pixel values.
 
-        This function adds uniform noise to disturb the original image, quantizes the disturbed image, computes
-        the histogram and then applies the greedy histogram modification to the quantized image.
+    This function adds noise over the full bucket width, quantizes the disturbed image, computes its histogram,
+    and then applies the greedy approach to compute and apply a transformation mapping. This allows pixels from a densely
+    populated input level to spread into neighboring levels.
 
-        Parameters:
-            img_array (np.ndarray): The input image array.
-            hist (dict): The histogram of the input image (non-normalized).
-            hist_ref (dict): The reference normalized histogram for modification.
+    Parameters:
+        img_array (np.ndarray): Input image array with normalized values in [0, 1].
+        hist (dict): Histogram of the original image (counts per intensity level).
+        hist_ref (dict): Reference histogram normalized values for matching or None for equalization.
 
-        Returns:
-            np.ndarray: The processed image after histogram matching.
-        """
-    # Obtain original intensity levels and compute the difference between consecutive levels.
+    Returns:
+        np.ndarray: Histogram modified image.
+    """
+    # Get unique intensity levels and compute level spacing (assumes equal spacing).
     orig_levels = np.unique(img_array)
     d = orig_levels[1] - orig_levels[0]
 
-    # Add uniform random noise to disturb the image.
-    noise = np.random.uniform(low=-d / 2, high=d / 2, size=img_array.shape)
+    # Add uniform noise in the full bucket width [-d, d] to disturb the image.
+    noise = np.random.uniform(low=-d, high=d, size=img_array.shape)
     disturbed_image = img_array + noise
 
-    # Define valid value range and clip the disturbed image.
-    min_val = orig_levels[0] - d / 2
-    max_val = orig_levels[-1] + d / 2
-    disturbed_image = np.clip(disturbed_image, min_val, max_val)
+    # Clip the disturbed image to ensure pixel values remain within [0, 1].
+    disturbed_image = np.clip(disturbed_image, 0, 1)
 
-    # Round values to aid in quantization.
-    disturbed_image = np.round(disturbed_image, 3)
+    # Quantize the disturbed image by rounding each pixel to the nearest original intensity level.
+    quantized_image = np.round(disturbed_image / d) * d
+    quantized_image = np.clip(quantized_image, 0, 1)
 
-    # Quantize the image by mapping disturbed pixel values back to the nearest original level.
-    quantized_image = disturbed_image.copy()
-    for level in orig_levels:
-        mask = np.abs(disturbed_image - level) < d / 2
-        quantized_image[mask] = level
-
-    # Calculate the histogram of the quantized image.
+    # Compute the histogram of the quantized (disturbed) image.
     disturbed_hist = calculate_hist_of_img(quantized_image, return_normalized=False)
 
-    # Compute the transformation using the greedy method.
+    # Compute the transformation mapping using the greedy approach and the disturbed histogram.
     modification_transform = greedy(quantized_image, disturbed_hist, hist_ref)
 
-    # Apply the transformation to get the final matched image.
-    matched_image = apply_hist_modification_transform(quantized_image, modification_transform)
-    return matched_image
+    # Apply the transformation mapping to get the final modified image.
+    modified_img = apply_hist_modification_transform(quantized_image, modification_transform)
+
+    return modified_img
