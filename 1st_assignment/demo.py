@@ -5,7 +5,9 @@ from hist_utils import calculate_hist_of_img, apply_hist_modification_transform
 from hist_modif import perform_hist_modification, perform_hist_eq, perform_hist_matching
 import os
 
-output_dir = "./output_plots"
+plt.ioff()
+
+output_dir = "./output_plots1"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
@@ -14,7 +16,7 @@ img = Image.open(fp=filename)
 bw_img = img.convert("L")
 img_array = np.array(bw_img).astype(float) / 255.0
 
-filename2 = "../images/ref_img.jpg"
+filename2 = "../images/input_img.jpg"
 img2 = Image.open(fp=filename2)
 bw_img2 = img2.convert("L")
 img_array2 = np.array(bw_img2).astype(float) / 255.0
@@ -38,7 +40,7 @@ plt.xlabel("Επίπεδο έντασης")
 plt.ylabel("Συχνότητα")
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "1_original_image_and_histogram.png"))
-plt.show()
+plt.close()
 
 # Check apply_hist_modification_transform
 histogram_transform = apply_hist_modification_transform(img_array, histogram)
@@ -65,7 +67,7 @@ for i, method in enumerate(methods):
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "2a_hist_modification_images.png"))
-plt.show()
+plt.close()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -84,7 +86,7 @@ for i, (method, title) in enumerate(zip(methods, titles)):
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "2b_hist_modification_histograms.png"))
-plt.show()
+plt.close()
 
 # Check perform_hist_eq
 plt.figure(figsize=(15, 5))
@@ -104,7 +106,7 @@ for i, method in enumerate(methods):
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "3a_hist_equalization_images.png"))
-plt.show()
+plt.close()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -123,7 +125,7 @@ for i, (method, title) in enumerate(zip(methods, titles)):
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "3b_hist_equalization_histograms.png"))
-plt.show()
+plt.close()
 
 # Check perform_hist_matching
 plt.figure(figsize=(10, 5))
@@ -139,7 +141,7 @@ plt.xlabel("Στάθμη εισόδου")
 plt.ylabel("Συχνότητα")
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "4a_reference_image_and_histogram.png"))
-plt.show()
+plt.close()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -158,7 +160,7 @@ for i, method in enumerate(methods):
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "4b_hist_matching_images.png"))
-plt.show()
+plt.close()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -177,4 +179,4 @@ for i, (method, title) in enumerate(zip(methods, titles)):
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "4c_hist_matching_histograms.png"))
-plt.show()
+plt.close()
