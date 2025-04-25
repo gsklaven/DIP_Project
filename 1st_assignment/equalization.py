@@ -168,7 +168,7 @@ def post_disturbance(img_array: np.ndarray, hist: dict, hist_ref: dict) -> np.nd
     d = orig_levels[1] - orig_levels[0]
 
     # Add uniform noise in the full bucket width [-d, d] to disturb the image.
-    noise = np.random.uniform(low=-d, high=d, size=img_array.shape)
+    noise = np.random.uniform(low=-d/2, high=d/2, size=img_array.shape)
     disturbed_image = img_array + noise
 
     # Clip the disturbed image to ensure pixel values remain within [0, 1].
