@@ -11,12 +11,12 @@ output_dir = "./output_plots"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
-filename = "../images/input_img.jpg"
+filename = "./input_img.jpg"
 img = Image.open(fp=filename)
 bw_img = img.convert("L")
 img_array = np.array(bw_img).astype(float) / 255.0
 
-filename2 = "../images/ref_img.jpg"
+filename2 = "./ref_img.jpg"
 img2 = Image.open(fp=filename2)
 bw_img2 = img2.convert("L")
 img_array2 = np.array(bw_img2).astype(float) / 255.0
