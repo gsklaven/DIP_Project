@@ -7,7 +7,7 @@ import os
 
 plt.ioff()
 
-output_dir = "./output_plots1"
+output_dir = "./output_plots"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
@@ -40,7 +40,7 @@ plt.xlabel("Επίπεδο έντασης")
 plt.ylabel("Συχνότητα")
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "1_original_image_and_histogram.png"))
-plt.close()
+plt.show()
 
 # Check apply_hist_modification_transform
 histogram_transform = apply_hist_modification_transform(img_array, histogram)
@@ -62,12 +62,12 @@ for i, method in enumerate(methods):
     modified_images.append(modified_img)
     plt.subplot(1, 4, i+2)
     plt.imshow(modified_img, cmap="gray")
-    plt.title(titles[i])
+    plt.title(titles[i] + " Αντιστοιχισμένη")
     plt.colorbar()
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "2a_hist_modification_images.png"))
-plt.close()
+plt.show()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -80,13 +80,13 @@ for i, (method, title) in enumerate(zip(methods, titles)):
     hist = calculate_hist_of_img(modified_images[i], return_normalized=True)
     plt.subplot(1, 4, i+2)
     plt.bar(range(len(hist)), hist.values(), color=["green", "red", "purple"][i], alpha=0.7)
-    plt.title(f"{title} Ιστόγραμμα")
+    plt.title(f"{title} Ιστόγραμμα Αντιστοιχισμένο")
     plt.xlabel("Στάθμη εισόδου")
     plt.ylabel("Συχνότητα")
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "2b_hist_modification_histograms.png"))
-plt.close()
+plt.show()
 
 # Check perform_hist_eq
 plt.figure(figsize=(15, 5))
@@ -101,12 +101,12 @@ for i, method in enumerate(methods):
     equalized_images.append(equalized_img)
     plt.subplot(1, 4, i+2)
     plt.imshow(equalized_img, cmap="gray")
-    plt.title(titles[i])
+    plt.title(titles[i] + " Εξισορροπημένη")
     plt.colorbar()
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "3a_hist_equalization_images.png"))
-plt.close()
+plt.show()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -119,13 +119,13 @@ for i, (method, title) in enumerate(zip(methods, titles)):
     hist = calculate_hist_of_img(equalized_images[i], return_normalized=True)
     plt.subplot(1, 4, i+2)
     plt.bar(range(len(hist)), hist.values(), color=["green", "red", "purple"][i], alpha=0.7)
-    plt.title(f"{title} Ιστόγραμμα")
+    plt.title(f"{title} Ιστόγραμμα Εξισορροπημένο")
     plt.xlabel("Στάθμη εισόδου")
     plt.ylabel("Συχνότητα")
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "3b_hist_equalization_histograms.png"))
-plt.close()
+plt.show()
 
 # Check perform_hist_matching
 plt.figure(figsize=(10, 5))
@@ -141,7 +141,7 @@ plt.xlabel("Στάθμη εισόδου")
 plt.ylabel("Συχνότητα")
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "4a_reference_image_and_histogram.png"))
-plt.close()
+plt.show()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -155,12 +155,12 @@ for i, method in enumerate(methods):
     matched_images.append(matched_img)
     plt.subplot(1, 4, i+2)
     plt.imshow(matched_img, cmap="gray")
-    plt.title(titles[i])
+    plt.title(titles[i] + " Αντιστοιχισμένη")
     plt.colorbar()
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "4b_hist_matching_images.png"))
-plt.close()
+plt.show()
 
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
@@ -173,10 +173,10 @@ for i, (method, title) in enumerate(zip(methods, titles)):
     hist = calculate_hist_of_img(matched_images[i], return_normalized=True)
     plt.subplot(1, 4, i+2)
     plt.bar(range(len(hist)), hist.values(), color=["green", "red", "purple"][i], alpha=0.7)
-    plt.title(f"{title} Ιστόγραμμα")
+    plt.title(f"{title} Ιστόγραμμα Αντιστοιχισμένο")
     plt.xlabel("Στάθμη εισόδου")
     plt.ylabel("Συχνότητα")
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "4c_hist_matching_histograms.png"))
-plt.close()
+plt.show()
