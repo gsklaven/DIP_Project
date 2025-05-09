@@ -8,11 +8,11 @@ from log_edge import log_edge
 
 plt.ioff()
 
-output_dir = "./output_plots"
+output_dir = "./output_plots2"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
-filename = "./basketball_large.png"
+filename = "images/europe_map.gif"
 img = Image.open(fp=filename)
 bw_img = img.convert("L")
 img_array = np.array(bw_img).astype(float) / 255.0
