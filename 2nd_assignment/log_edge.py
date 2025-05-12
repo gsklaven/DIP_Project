@@ -27,7 +27,7 @@ def log_edge(in_img_array: np.ndarray) -> np.ndarray:
                         if m == 1 and n == 1:
                             continue
                         neighbor_val = neighborhood[m, n]
-                        if ((center > 0 and neighbor_val < 0) or (center < 0 and neighbor_val > 0)) and \
+                        if ((center > 0 > neighbor_val) or (center < 0 < neighbor_val)) and \
                            (abs(center - neighbor_val) > threshold):
                             out_img_array[i, j] = 1
                             break

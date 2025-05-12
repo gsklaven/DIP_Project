@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import os
 from sobel_edge import sobel_edge
 from log_edge import log_edge
-from fir_conv import fir_conv
 from circ_hough import circ_hough
 
 
