@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 from sobel_edge import sobel_edge
-from circ_hough_new import circ_hough
+from circ_hough_fast import circ_hough
 
 # Φόρτωση εικόνας
 filename = "images/basketball_large.png"
