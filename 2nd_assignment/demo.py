@@ -8,11 +8,11 @@ from circ_hough import circ_hough
 
 
 plt.ioff()
-output_dir = "./output_plots"
+output_dir = "./output_plots3"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
-filename = "images/basketball_large.png"
+filename = "images/SixCircles.png"
 img = Image.open(fp=filename)
 bw_img = img.convert("L")
 img_array = np.array(bw_img).astype(float) / 255.0
@@ -56,9 +56,9 @@ plt.savefig(os.path.join(output_dir, "3_Log_Edge_Detection.png"))
 plt.show()
 
 # Circle Hough Transform initialization
-R_max = 800
-dim = np.array([200, 200, 30])
-V_min = 600
+R_max = 80
+dim = np.array([100, 100, 50])
+V_min = 1600
 
 # Circle Hough Transform with Sobel edge detection
 edge_array = sobel_edge(img_array, thres=0.5)
@@ -70,21 +70,22 @@ for (cx, cy), r in zip(centers, radii):
     circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
     ax.add_patch(circle)
     ax.plot(cy, cx, marker='x', color='green', markersize=8, label="Κέντρο")
-plt.title("Circle Detection (Sobel + Hough)")
+plt.title("Ανίχνευση κύκλων Hough (Sobel)")
 plt.axis("off")
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(output_dir, "4_Circle_Hough_Transform_Sobel.png"))
 
 # Circle Hough Transform with Log edge detection
 centers_log, radii_log = circ_hough(log_out_img_array, R_max, dim, V_min)
 
 fig, ax = plt.subplots(figsize=(6, 6))
 ax.imshow(img_array, cmap='gray')
-for (cx, cy), r in zip(centers_log, radii_log):
+for (cx, cy), r in zip(centers, radii):
     circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
     ax.add_patch(circle)
     ax.plot(cy, cx, marker='x', color='green', markersize=8, label="Κέντρο")
-plt.title("Circle Detection (LoG + Hough)")
+plt.title("Ανίχνευση κύκλων Hough (Log)")
 plt.axis("off")
 plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "5_Circle_Hough_Transform_Log.png"))
 plt.show()
