@@ -28,4 +28,7 @@ def fir_conv(in_img_array: np.ndarray, h: np.ndarray, in_origin: np.ndarray, mas
             region = padded_img[i:i+mask_h, j:j+mask_w]
             out_img_array[i, j] = np.sum(region * h)
 
+    # Adjust the output image to the original image size
+    out_img_array = out_img_array[mask_h-1:mask_h-1+img_h, mask_w-1:mask_w-1+img_w]
+
     return out_img_array, out_origin
