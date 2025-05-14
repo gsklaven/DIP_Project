@@ -60,10 +60,8 @@ R_max = 800
 dim = np.array([200, 200, 30])
 V_min = 600
 
-
 # Circle Hough Transform with Sobel edge detection
 edge_array = sobel_edge(img_array, thres=0.5)
-
 centers, radii = circ_hough(edge_array, R_max, dim, V_min)
 
 fig, ax = plt.subplots(figsize=(6, 6))
@@ -72,7 +70,6 @@ for (cx, cy), r in zip(centers, radii):
     circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
     ax.add_patch(circle)
     ax.plot(cy, cx, marker='x', color='green', markersize=8, label="Κέντρο")
-
 plt.title("Circle Detection (Sobel + Hough)")
 plt.axis("off")
 plt.tight_layout()
@@ -87,7 +84,6 @@ for (cx, cy), r in zip(centers_log, radii_log):
     circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
     ax.add_patch(circle)
     ax.plot(cy, cx, marker='x', color='green', markersize=8, label="Κέντρο")
-
 plt.title("Circle Detection (LoG + Hough)")
 plt.axis("off")
 plt.tight_layout()
