@@ -45,7 +45,7 @@ plt.title("Number of Detected Edge Pixels vs. Threshold")
 plt.xlabel("Threshold Value")
 plt.ylabel("Number of Edge Pixels")
 plt.grid(True)
-plt.savefig(os.path.join(output_dir, "Sobel_Edge_Pixel_Count_vs_Threshold.png"))
+plt.savefig(os.path.join(output_dir, "3_Sobel_Edge_Pixel_Count_vs_Threshold.png"))
 
 # Log edge detection
 log_out_img_array = log_edge(img_array)
@@ -73,7 +73,7 @@ for i in V_min:
     plt.title(f"Ανίχνευση κύκλων Hough (Sobel) - V_min={i}")
     plt.axis("off")
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, f"Circle_Hough_Sobel_Vmin_{i}.png"))
+    plt.savefig(os.path.join(output_dir, f"4_Circle_Hough_Sobel_Vmin_{i}.png"))
     plt.close()
 
     # Circle Hough Transform with Log edge detection
@@ -88,5 +88,5 @@ for i in V_min:
     plt.title(f"Ανίχνευση κύκλων Hough (LoG) - V_min={i}")
     plt.axis("off")
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, f"Circle_Hough_Log_Vmin_{i}.png"))
+    plt.savefig(os.path.join(output_dir, f"5_Circle_Hough_Log_Vmin_{i}.png"))
     plt.close()
