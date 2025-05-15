@@ -53,7 +53,6 @@ plt.imshow(log_out_img_array, cmap='gray')
 plt.title("Log Edge Detection")
 plt.axis('off')
 plt.savefig(os.path.join(output_dir, "3_Log_Edge_Detection.png"))
-plt.show()
 
 # Circle Hough Transform initialization
 R_max = 500
@@ -82,7 +81,7 @@ for i in V_min:
 
     fig, ax = plt.subplots(figsize=(6, 6))
     ax.imshow(img_array, cmap='gray')
-    for (cx, cy), r in zip(centers_log, centers_log):
+    for (cx, cy), r in zip(centers_log, radii_log):
         circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
         ax.add_patch(circle)
         ax.plot(cy, cx, marker='x', color='green', markersize=8)
