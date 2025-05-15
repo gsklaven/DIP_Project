@@ -8,11 +8,11 @@ from circ_hough import circ_hough
 
 
 plt.ioff()
-output_dir = "./output_plots3"
+output_dir = "./output_plots1"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
-filename = "images/SixCircles.png"
+filename = "images/basketball_large.png"
 img = Image.open(fp=filename)
 bw_img = img.convert("L")
 img_array = np.array(bw_img).astype(float) / 255.0
@@ -56,9 +56,9 @@ plt.savefig(os.path.join(output_dir, "3_Log_Edge_Detection.png"))
 plt.show()
 
 # Circle Hough Transform initialization
-R_max = 80
-dim = np.array([100, 100, 50])
-V_min = 1600
+R_max = 500
+dim = np.array([200, 200, 100])
+V_min = 1750
 
 # Circle Hough Transform with Sobel edge detection
 edge_array = sobel_edge(img_array, thres=0.5)

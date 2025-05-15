@@ -15,11 +15,7 @@ def circ_hough(in_img_array: np.ndarray, R_max: float, dim: np.ndarray, V_min: i
     accumulator = np.zeros((len(k), len(l), len(m)), dtype=int)
     thetas = np.linspace(0, 2 * np.pi, 360, endpoint=False)
 
-    edges = []
-    for xi in range(n1):
-        for yi in range(n2):
-            if int(in_img_array[xi, yi]) == 1:
-                edges.append((xi, yi))
+    edges = np.argwhere(in_img_array == 1)
 
     for xi, yi in edges:
         for r in range(len(m)):
@@ -37,26 +33,22 @@ def circ_hough(in_img_array: np.ndarray, R_max: float, dim: np.ndarray, V_min: i
 
     centers = []
     radii = []
-    print(max(accumulator.flatten()))
+    print("Number of edge pixels:", len(edges))
+    print("Max value of accumulator:", max(accumulator.flatten()))
 
     window = 6
     half = window // 2
 
-    for a in range(len(k)):
-        for b in range(len(l)):
-            for r in range(len(m)):
-                neighbors = accumulator[a - half:a + half + 1, b - half:b + half + 1, r - half:r + half + 1]
-
-                if a == 0 or a == len(k) - 1 or b == 0 or b == len(l) - 1 or r == 0 or r == len(m) - 1:
+    for a in range(half, len(k) - half):
+        for b in range(half, len(l) - half):
+            for r in range(half, len(m) - half):
+                val = accumulator[a, b, r]
+                if val <= V_min:
                     continue
-                if accumulator[a, b, r] > np.max(neighbors):
-                    if accumulator[a, b, r] > V_min:
-                        centers.append((a * step_k, b * step_l))
-                        radii.append(r * step_m)
-                elif accumulator[a, b, r] == np.max(neighbors) and accumulator[a, b, r] > V_min and np.count_nonzero(neighbors == accumulator[a, b, r]) == 1:
+                neighbors = accumulator[a - half:a + half + 1, b - half:b + half + 1, r - half:r + half + 1]
+                max_val = np.max(neighbors)
+                if val == max_val and np.count_nonzero(neighbors == val) == 1:
                     centers.append((a * step_k, b * step_l))
                     radii.append(r * step_m)
-                else:
-                    continue
 
     return centers, radii
