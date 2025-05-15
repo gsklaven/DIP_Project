@@ -65,7 +65,7 @@ for i in V_min:
     centers_sobel, radii_sobel = circ_hough(edge_array, R_max, dim, i)
 
     fig, ax = plt.subplots(figsize=(6, 6))
-    ax.imshow(img_array, cmap='gray')
+    ax.imshow(img, cmap='gray')
     for (cx, cy), r in zip(centers_sobel, radii_sobel):
         circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
         ax.add_patch(circle)
@@ -80,7 +80,7 @@ for i in V_min:
     centers_log, radii_log = circ_hough(log_out_img_array, R_max, dim, i)
 
     fig, ax = plt.subplots(figsize=(6, 6))
-    ax.imshow(img_array, cmap='gray')
+    ax.imshow(img, cmap='gray')
     for (cx, cy), r in zip(centers_log, radii_log):
         circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
         ax.add_patch(circle)
