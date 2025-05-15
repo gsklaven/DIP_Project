@@ -12,7 +12,6 @@ os.makedirs(output_dir, exist_ok=True)
 filename = "images/basketball_large.png"
 img = Image.open(fp=filename)
 width, height = img.size
-img = img.resize((int(img_size[0]), int(img_size[1])))
 bw_img = img.convert("L")
 img_array = np.array(bw_img).astype(float) / 255.0
 
