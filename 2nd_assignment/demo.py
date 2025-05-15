@@ -8,7 +8,7 @@ from circ_hough import circ_hough
 
 
 plt.ioff()
-output_dir = "./output_plots1"
+output_dir = "./output_plots"
 os.makedirs(output_dir, exist_ok=True)
 
 # Load images
@@ -57,35 +57,37 @@ plt.show()
 
 # Circle Hough Transform initialization
 R_max = 500
-dim = np.array([200, 200, 100])
-V_min = 1750
+dim = np.array([400, 400, 200])
+V_min = [1500, 1750, 1850, 1950, 2000, 2250, 2500, 2750]
 
-# Circle Hough Transform with Sobel edge detection
-edge_array = sobel_edge(img_array, thres=0.5)
-centers, radii = circ_hough(edge_array, R_max, dim, V_min)
+for i in V_min:
+    # Circle Hough Transform with Sobel edge detection
+    edge_array = sobel_edge(img_array, thres=0.5)
+    centers_sobel, radii_sobel = circ_hough(edge_array, R_max, dim, i)
 
-fig, ax = plt.subplots(figsize=(6, 6))
-ax.imshow(img_array, cmap='gray')
-for (cx, cy), r in zip(centers, radii):
-    circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
-    ax.add_patch(circle)
-    ax.plot(cy, cx, marker='x', color='green', markersize=8, label="Κέντρο")
-plt.title("Ανίχνευση κύκλων Hough (Sobel)")
-plt.axis("off")
-plt.tight_layout()
-plt.savefig(os.path.join(output_dir, "4_Circle_Hough_Transform_Sobel.png"))
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.imshow(img_array, cmap='gray')
+    for (cx, cy), r in zip(centers_sobel, radii_sobel):
+        circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
+        ax.add_patch(circle)
+        ax.plot(cy, cx, marker='x', color='green', markersize=8)
+    plt.title(f"Ανίχνευση κύκλων Hough (Sobel) - V_min={i}")
+    plt.axis("off")
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f"Circle_Hough_Sobel_Vmin_{i}.png"))
+    plt.close()
 
-# Circle Hough Transform with Log edge detection
-centers_log, radii_log = circ_hough(log_out_img_array, R_max, dim, V_min)
+    # Circle Hough Transform with Log edge detection
+    centers_log, radii_log = circ_hough(log_out_img_array, R_max, dim, i)
 
-fig, ax = plt.subplots(figsize=(6, 6))
-ax.imshow(img_array, cmap='gray')
-for (cx, cy), r in zip(centers, radii):
-    circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
-    ax.add_patch(circle)
-    ax.plot(cy, cx, marker='x', color='green', markersize=8, label="Κέντρο")
-plt.title("Ανίχνευση κύκλων Hough (Log)")
-plt.axis("off")
-plt.tight_layout()
-plt.savefig(os.path.join(output_dir, "5_Circle_Hough_Transform_Log.png"))
-plt.show()
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.imshow(img_array, cmap='gray')
+    for (cx, cy), r in zip(centers_log, centers_log):
+        circle = plt.Circle((cy, cx), r, fill=False, color='blue', linewidth=2)
+        ax.add_patch(circle)
+        ax.plot(cy, cx, marker='x', color='green', markersize=8)
+    plt.title(f"Ανίχνευση κύκλων Hough (LoG) - V_min={i}")
+    plt.axis("off")
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f"Circle_Hough_Log_Vmin_{i}.png"))
+    plt.close()
