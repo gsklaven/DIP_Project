@@ -3,8 +3,8 @@ from fir_conv import fir_conv
 
 
 def log_edge(in_img_array: np.ndarray) -> np.ndarray:
-    log_size = 10.0
-    sigma = 1.1
+    log_size = 7.0
+    sigma = 0.6
     k = (log_size - 1) / 2
     x = np.arange(-k, k, 1)
     x1, x2 = np.meshgrid(x, x)
@@ -13,7 +13,7 @@ def log_edge(in_img_array: np.ndarray) -> np.ndarray:
     h = - 1 * (1 - y) * np.exp(-y) / (np.pi * (sigma ** 4))
 
     result_img = fir_conv(in_img_array, h, None, None)[0]
-    threshold = 0.04
+    threshold = 0.05
     out_img_array = np.zeros_like(result_img, dtype=int)
 
     for i in range(1, result_img.shape[0] - 1):
