@@ -56,10 +56,15 @@ plt.savefig(os.path.join(output_dir, "3_Log_Edge_Detection.png"))
 
 # Circle Hough Transform initialization
 R_max = 500
-dim = np.array([400, 400, 200])
-V_min = [1500, 1750, 1850, 1950, 2000, 2250, 2500, 2750]
+dim = np.array([200, 200, 100])
+V_min_Sobel = [550, 650, 730, 750, 1000]
+V_min_LoG = [300, 370, 400, 600, 1000]
 
-for i in V_min:
+width, height = img.size
+img_size = (width/3, height/3)
+img = img.resize((int(img_size[0]), int(img_size[1])))
+
+for i in V_min_Sobel:
     # Circle Hough Transform with Sobel edge detection
     edge_array = sobel_edge(img_array, thres=0.5)
     centers_sobel, radii_sobel = circ_hough(edge_array, R_max, dim, i)
@@ -76,7 +81,9 @@ for i in V_min:
     plt.savefig(os.path.join(output_dir, f"4_Circle_Hough_Sobel_Vmin_{i}.png"))
     plt.close()
 
+for i in V_min_LoG:
     # Circle Hough Transform with Log edge detection
+    log_out_img_array = log_edge(img_array)
     centers_log, radii_log = circ_hough(log_out_img_array, R_max, dim, i)
 
     fig, ax = plt.subplots(figsize=(6, 6))
