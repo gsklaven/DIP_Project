@@ -63,6 +63,8 @@ V_min_LoG = [300, 370, 400, 600, 1000]
 width, height = img.size
 img_size = (width/3, height/3)
 img = img.resize((int(img_size[0]), int(img_size[1])))
+bw_img = img.convert("L")
+img_array = np.array(bw_img).astype(float) / 255.0
 
 for i in V_min_Sobel:
     # Circle Hough Transform with Sobel edge detection
