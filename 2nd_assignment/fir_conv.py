@@ -23,12 +23,10 @@ def fir_conv(in_img_array: np.ndarray, h: np.ndarray, in_origin: np.ndarray, mas
         constant_values=0
     )
 
-    h_flipped = np.flip(np.flip(h, axis=0), axis=1)
-
     for i in range(out_h):
         for j in range(out_w):
             region = padded_img[i:i+mask_h, j:j+mask_w]
-            out_img_array[i, j] = np.sum(region * h_flipped)
+            out_img_array[i, j] = np.sum(region * h)
 
     # Adjust the output image to the original image size
     out_img_array = out_img_array[mask_h-1:mask_h-1+img_h, mask_w-1:mask_w-1+img_w]
