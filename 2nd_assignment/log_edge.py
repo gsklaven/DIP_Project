@@ -3,8 +3,8 @@ from fir_conv import fir_conv
 
 
 def log_edge(in_img_array: np.ndarray) -> np.ndarray:
-    log_size = 7.0
     sigma = 0.6
+    log_size = 2 * np.ceil(sigma * 3) + 1
     k = (log_size - 1) / 2
     x = np.arange(-k, k, 1)
     x1, x2 = np.meshgrid(x, x)
