@@ -1,6 +1,7 @@
 import numpy as np
 from fir_conv import fir_conv
 
+
 def sobel_edge(in_img_array: np.ndarray, thres: float) -> np.ndarray:
     # Define Sobel masks for horizontal and vertical edge detection
     gx1_mask = np.array([[-1, 0, 1],

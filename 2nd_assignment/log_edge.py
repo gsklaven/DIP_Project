@@ -1,6 +1,7 @@
 import numpy as np
 from fir_conv import fir_conv
 
+
 def log_edge(in_img_array: np.ndarray) -> np.ndarray:
     # Set parameters for the LoG filter
     sigma = 0.6

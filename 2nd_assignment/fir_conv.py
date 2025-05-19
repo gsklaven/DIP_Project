@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def fir_conv(in_img_array: np.ndarray, h: np.ndarray, in_origin: np.ndarray, mask_origin: np.ndarray) \
         -> [np.ndarray, np.ndarray]:
     # Get dimensions of input image and mask
