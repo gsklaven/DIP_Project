@@ -27,22 +27,18 @@ def log_edge(in_img_array: np.ndarray) -> np.ndarray:
     for i in range(1, result_img.shape[0] - 1):
         for j in range(1, result_img.shape[1] - 1):
             center = result_img[i, j]
-
-            # Only consider pixels with a strong enough response
             if abs(center) > threshold:
-                # Extract the 3x3 neighborhood
-                neighborhood = result_img[i - 1:i + 2, j - 1:j + 2]
-                for m in range(3):
-                    for n in range(3):
-                        if m == 1 and n == 1:
-                            continue  # Skip the center pixel
-                        neighbor_val = neighborhood[m, n]
-                        # Check for zero-crossing with sufficient difference
-                        if ((center > 0 > neighbor_val) or (center < 0 < neighbor_val)) and \
-                           (abs(center - neighbor_val) > threshold):
-                            out_img_array[i, j] = 1
-                            break
-                    if out_img_array[i, j] == 1:
+                # Symmetrical pairs of pixels around the center pixel
+                symmetric_pairs = [
+                    (result_img[i, j - 1], result_img[i, j + 1]),  # left - right
+                    (result_img[i - 1, j], result_img[i + 1, j]),  # up - down
+                    (result_img[i - 1, j - 1], result_img[i + 1, j + 1]),  # diagonally \
+                    (result_img[i - 1, j + 1], result_img[i + 1, j - 1])  # diagonally /
+                ]
+
+                for a, b in symmetric_pairs:
+                    if (a < -threshold and b > threshold) or (a > threshold and b < -threshold):
+                        out_img_array[i, j] = 1
                         break
 
     # Return the binary edge map
