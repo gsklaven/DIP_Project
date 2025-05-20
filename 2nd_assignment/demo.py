@@ -58,7 +58,7 @@ plt.savefig(os.path.join(output_dir, "3_Log_Edge_Detection.png"))
 R_max = 500
 dim = np.array([200, 200, 100])
 V_min_Sobel = [550, 650, 730, 750, 1000]
-V_min_LoG = [600, 700, 800, 900, 1000]
+V_min_LoG = [400, 520, 550, 600, 1000]
 
 width, height = img.size
 img_size = (width/3, height/3)
