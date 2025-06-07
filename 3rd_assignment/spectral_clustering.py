@@ -7,8 +7,8 @@ def spectral_clustering(affinity_mat: np.ndarray, k: int) -> np.ndarray:
     w = affinity_mat
 
     d = np.diag(np.sum(w, axis=1))
-    l = d - w
-    eigen_values, eigen_vectors = eigs(l, k=k, which='SM')
+    la = d - w
+    eigen_values, eigen_vectors = eigs(la, k=k, which='SM')
     u = eigen_vectors.real
 
     kmeans = KMeans(n_clusters=k, random_state=1)
