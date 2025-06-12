@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from scipy.io import loadmat
 from image_to_graph import image_to_graph
-from spectral_clustering import spectral_clustering
+from n_cuts import n_cuts
 import os
 
 
@@ -18,7 +18,7 @@ m2, n2, c2 = d2a.shape
 img_graph = image_to_graph(d2a)
 
 for idx, k in enumerate(k_list):
-    labels = spectral_clustering(img_graph, k)
+    labels = n_cuts(img_graph, k)
 
     label_img = labels.reshape(m2, n2)
 
@@ -30,11 +30,11 @@ for idx, k in enumerate(k_list):
     plt.axis('off')
 
     plt.subplot(1, 2, 2)
-    plt.title(f"Spectral Clustering (k={k})")
+    plt.title(f"Normalized cuts (k={k})")
     plt.imshow(label_img, cmap='viridis')
     plt.axis('off')
 
-    plt.savefig(os.path.join(output_dir, f"Data 2a clustering_{k}.png"))
+    plt.savefig(os.path.join(output_dir, f"Data 2a ncuts_{k}.png"))
     plt.tight_layout()
     plt.show()
 
@@ -45,7 +45,7 @@ m3, n3, c3 = d2b.shape
 img_graph = image_to_graph(d2b)
 
 for idx, k in enumerate(k_list):
-    labels = spectral_clustering(img_graph, k)
+    labels = n_cuts(img_graph, k)
 
     label_img = labels.reshape(m3, n3)
 
@@ -57,10 +57,10 @@ for idx, k in enumerate(k_list):
     plt.axis('off')
 
     plt.subplot(1, 2, 2)
-    plt.title(f"Spectral Clustering (k={k})")
+    plt.title(f"Normalized cuts (k={k})")
     plt.imshow(label_img, cmap='viridis')
     plt.axis('off')
 
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, f"Data 2b clustering_{k}.png"))
+    plt.savefig(os.path.join(output_dir, f"Data 2b ncuts_{k}.png"))
     plt.show()
