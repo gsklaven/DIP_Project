@@ -10,4 +10,4 @@ Digital Image Processing Project:
 
 - Third Assignment: Image Segmentation
 
-  <img src="3rd_assignment/output_plots/Data 2b clustering_4.png" alt="Segmented Image" width="350"/>
+  <img src="3rd_assignment/output_plots/ncuts_recursive2/d2b_ncuts_recursive_2.png" alt="Segmented Image" width="350"/>
