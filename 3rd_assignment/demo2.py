@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
+import os
 from scipy.io import loadmat
 from image_to_graph import image_to_graph
 from spectral_clustering import spectral_clustering
-import os
 
 
 plt.ioff()
