@@ -6,7 +6,7 @@ import os
 
 
 plt.ioff()
-output_dir = "./output_plots"
+output_dir = "./output_plots/ncuts"
 os.makedirs(output_dir, exist_ok=True)
 
 k_list = [2, 3, 4]
@@ -34,9 +34,8 @@ for idx, k in enumerate(k_list):
     plt.imshow(label_img, cmap='viridis')
     plt.axis('off')
 
-    plt.savefig(os.path.join(output_dir, f"Data 2a ncuts_{k}.png"))
+    plt.savefig(os.path.join(output_dir, f"d2a_ncuts_{k}.png"))
     plt.tight_layout()
-    plt.show()
 
 data2b = loadmat("dip_hw_3.mat")
 d2b = data2b["d2b"]
@@ -62,5 +61,4 @@ for idx, k in enumerate(k_list):
     plt.axis('off')
 
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, f"Data 2b ncuts_{k}.png"))
-    plt.show()
+    plt.savefig(os.path.join(output_dir, f"d2b_ncuts_{k}.png"))
