@@ -30,7 +30,7 @@ plt.imshow(d2a)
 plt.axis('off')
 
 plt.subplot(1, 2, 2)
-plt.title(f"Normalized recursive cuts (k={2})")
+plt.title(f"Normalized recursive cuts (k={2}, T1={t1}, T2={t2})")
 plt.imshow(label_img, cmap='viridis')
 plt.axis('off')
 
@@ -55,7 +55,7 @@ plt.imshow(d2b)
 plt.axis('off')
 
 plt.subplot(1, 2, 2)
-plt.title(f"Normalized recursive cuts (k={2})")
+plt.title(f"Normalized recursive cuts (k={2}, T1={t1}, T2={t2})")
 plt.imshow(label_img, cmap='viridis')
 plt.axis('off')
 

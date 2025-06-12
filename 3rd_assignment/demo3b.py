@@ -30,8 +30,8 @@ for idx, k in enumerate(k_list):
     plt.imshow(d2a)
     plt.axis('off')
 
-    plt.subplot(2, 2, 2)
-    plt.title(f"Normalized Cuts (k=2, n_cut={n_cut_value:.2f})")
+    plt.subplot(1, 2, 2)
+    plt.title(f"Normalized Cuts (k=2, n_cut_value={n_cut_value:.4f})")
     plt.imshow(label_img, cmap='viridis')
     plt.axis('off')
 
@@ -57,8 +57,8 @@ for idx, k in enumerate(k_list):
     plt.imshow(d2b)
     plt.axis('off')
 
-    plt.subplot(2, 2, 2)
-    plt.title(f"Normalized Cuts (k=2, n_cut={n_cut_value:.2f})")
+    plt.subplot(1, 2, 2)
+    plt.title(f"Normalized Cuts (k=2, n_cut_value={n_cut_value:.4f})")
     plt.imshow(label_img, cmap='viridis')
     plt.axis('off')
 
